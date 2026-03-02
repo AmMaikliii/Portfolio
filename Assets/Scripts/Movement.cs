@@ -6,17 +6,21 @@ public class Movement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Transform transform;
+    public SpriteRenderer render;
     //public Animator animator;
     
     public bool isFalling = true;
     public float jumpForce = 5f;
     public float moveSpeed = 5f;
+    //public float Magnitude = 0f;
+
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         transform = GetComponent<Transform>();
+        render = GetComponent<SpriteRenderer>();
     }
     
     // Update is called once per frame
@@ -32,12 +36,24 @@ public class Movement : MonoBehaviour
             print("Jump!");
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
         }
+
+        //flip
+        /*
+        Magnitude = rb.velocity.magnitude;
+        if (rb.velocity.magnitude < 0.0f)
+        {
+            render.flipX = false;
+        }
+        else if (rb.velocity.magnitude > 0.0f)
+        {
+            render.flipX = true;
+        } */
     }
     
     //ground collisions
     void OnCollisionEnter2D(Collision2D other)
     {
-        print("On Collision Enter");
+        print("(Mvmt) On Collision Enter: " + other.gameObject.name);
         if (other.gameObject.CompareTag("Ground"))
         {
             isFalling = false;
@@ -45,7 +61,7 @@ public class Movement : MonoBehaviour
     }
     void OnCollisionExit2D(Collision2D other)
     {
-        print("On Collision Exit");
+        print("(Mvmt) On Collision Exit: " + other.gameObject.name);
         if (other.gameObject.CompareTag("Ground"))
         {
             isFalling = true;
