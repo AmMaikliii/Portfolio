@@ -5,31 +5,28 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public Transform transform;
+    //public Animator animator;
+    
     public bool isFalling = true;
-    public float jumpForce = 10.0f;
-    public float moveSpeed = 10.0f;
+    public float jumpForce = 5f;
+    public float moveSpeed = 5f;
+    
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        transform = GetComponent<Transform>();
     }
     
     // Update is called once per frame
     void Update()
     {
-        //left/right movement
+        //left/right 
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
 
-        Vector2 moveDirectionRight = Vector2.right * moveSpeed * Time.deltaTime;
-        Vector2 moveDirectionLeft = Vector2.left * moveSpeed * Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            rb.AddForce(moveDirectionRight, ForceMode2D.Impulse);
-        }
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            rb.AddForce(moveDirectionLeft, ForceMode2D.Impulse);
-        }
-        //jump movement
+        //jump 
         if (Input.GetKeyDown(KeyCode.Space) && isFalling == false)
         {
             print("Jump!");
