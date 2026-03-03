@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Movement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Transform transform;
     public SpriteRenderer render;
-    //public Animator animator;
+    public Animator animator;
     
     public bool isFalling = true;
     public float jumpForce = 5f;
     public float moveSpeed = 5f;
+    public float sensitivity = 5f;
     //public float Magnitude = 0f;
+
 
     
     // Start is called before the first frame update
@@ -21,6 +24,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         transform = GetComponent<Transform>();
         render = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
     
     // Update is called once per frame
@@ -28,10 +32,28 @@ public class Movement : MonoBehaviour
     {
         //left/right 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
+        
         rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
 
+        
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            animator.SetBool("MovingRight", true);
+            animator.SetBool("MovingLeft", false);
+        }
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            animator.SetBool("MovingRight", false);
+            animator.SetBool("MovingLeft", true);
+        }
+        else
+        {
+            animator.SetBool("MovingRight", false);
+            animator.SetBool("MovingLeft", false);
+        }
+
         //jump 
-        if (Input.GetKeyDown(KeyCode.Space) && isFalling == false)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && isFalling == false)
         {
             print("Jump!");
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
@@ -67,4 +89,5 @@ public class Movement : MonoBehaviour
             isFalling = true;
         }
     }
+
 }
