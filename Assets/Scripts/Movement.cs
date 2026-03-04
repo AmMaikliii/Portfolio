@@ -30,7 +30,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //left/right 
+        // left/right - referenced Tony's code
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         
         rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);

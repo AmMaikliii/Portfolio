@@ -8,6 +8,7 @@ public class Wall : MonoBehaviour
     public string nextLevel = "";
     public SpriteRenderer render;
     public Transform transform;
+    public Animator animator;
 
     //public float amount = 1f;
 
@@ -17,8 +18,17 @@ public class Wall : MonoBehaviour
     {
         render = GetComponent<SpriteRenderer>();
         transform = GetComponent<Transform>();
+        animator = GetComponentInChildren<Animator>();
 
         render.enabled = false;
+        animator.enabled = true;
+        animator.Play("unfade", 0, 0);
+        Invoke("Stop", 1);
+    }
+
+    void Stop()
+    {
+        animator.enabled = false;
     }
 
     void Update()
@@ -42,7 +52,9 @@ public class Wall : MonoBehaviour
             render.enabled = true;
             if(Input.GetKey(KeyCode.W))
             {
+                animator.enabled = true;
                 Invoke("NextLevel", 1);
+                animator.Play("fade", 0, 0);
             }  
             
         }
@@ -51,5 +63,13 @@ public class Wall : MonoBehaviour
     void NextLevel()
     {
         SceneManager.LoadScene(nextLevel);  
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            render.enabled = false;
+        }
     }
 }
