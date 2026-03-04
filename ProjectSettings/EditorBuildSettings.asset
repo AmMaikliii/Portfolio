@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TeraByte.unity
     guid: b2f12b30dd717a44da9787ae8e0116f3
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: f9296425693c9b843a13774bf7e449d8
   m_configObjects: {}

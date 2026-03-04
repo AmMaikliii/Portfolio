@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Text : MonoBehaviour
+public class Chrome : MonoBehaviour
 {
     public SpriteRenderer render;
+    public TextMesh textmesh;
 
-
-    public Color visible = new Color(255, 255, 255, 255);
-    public Color transparent = new Color(0, 0, 0, 0);
-
+    public string text = "";
     // Start is called before the first frame update
     void Start()
     {
+        render.enabled = false;
         render = GetComponent<SpriteRenderer>();
-
-        render.color = transparent;
+        textmesh = GetComponentInChildren<TextMesh>();
+        textmesh.text = "";
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -23,7 +22,8 @@ public class Text : MonoBehaviour
         print("Hi " + gameObject.name);
         if(other.gameObject.CompareTag("Player"))
         {
-            render.color = visible;
+            render.enabled = true;
+            textmesh.text = text;
         }
     }
     
@@ -32,7 +32,8 @@ public class Text : MonoBehaviour
         print("Bye " + gameObject.name);
         if(other.gameObject.CompareTag("Player"))
         {
-            render.color = transparent;
+            render.enabled = false;
+            textmesh.text = "";
         }
     }
 

@@ -9,17 +9,16 @@ public class Wall : MonoBehaviour
     public SpriteRenderer render;
     public Transform transform;
 
-    public float amount = 1f;
+    //public float amount = 1f;
 
-    public Color visible = new Color(255, 255, 255, 255);
-    public Color transparent = new Color(0, 0, 0, 0);
+    
 
     void Start()
     {
         render = GetComponent<SpriteRenderer>();
         transform = GetComponent<Transform>();
 
-        render.color = transparent;
+        render.enabled = false;
     }
 
     void Update()
@@ -35,18 +34,22 @@ public class Wall : MonoBehaviour
         }*/
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerStay2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
             print("(Wall) Next Level");
-            render.color = visible;
-            Invoke("NextLevel", 1);
+            render.enabled = true;
+            if(Input.GetKey(KeyCode.W))
+            {
+                Invoke("NextLevel", 1);
+            }  
+            
         }
     }
     
     void NextLevel()
     {
-        SceneManager.LoadScene(nextLevel);
+        SceneManager.LoadScene(nextLevel);  
     }
 }

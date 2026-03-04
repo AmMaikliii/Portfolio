@@ -38,13 +38,31 @@ public class Movement : MonoBehaviour
         
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            animator.SetBool("MovingRight", true);
-            animator.SetBool("MovingLeft", false);
+            
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                animator.SetBool("MovingRight", false);
+                animator.SetBool("MovingLeft", false);
+            }
+            else 
+            {
+                animator.SetBool("MovingRight", true);
+                animator.SetBool("MovingLeft", false);
+            }
         }
         else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            animator.SetBool("MovingRight", false);
-            animator.SetBool("MovingLeft", true);
+            
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                animator.SetBool("MovingRight", false);
+                animator.SetBool("MovingLeft", false);
+            }
+            else 
+            {
+                animator.SetBool("MovingRight", false);
+                animator.SetBool("MovingLeft", true);
+            }
         }
         else
         {
