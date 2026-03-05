@@ -50,7 +50,7 @@ public class Wall : MonoBehaviour
         {
             print("(Wall) Next Level");
             render.enabled = true;
-            if(Input.GetKey(KeyCode.W))
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
                 animator.enabled = true;
                 Invoke("NextLevel", 1);

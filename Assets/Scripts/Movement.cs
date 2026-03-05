@@ -71,11 +71,11 @@ public class Movement : MonoBehaviour
         }
 
         //jump 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && isFalling == false)
+        /*if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && isFalling == false)
         {
             print("Jump!");
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
-        }
+        }*/
 
         //flip
         /*
