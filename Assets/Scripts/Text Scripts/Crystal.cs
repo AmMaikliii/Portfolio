@@ -6,6 +6,9 @@ public class Crystal : MonoBehaviour
 {
     public SpriteRenderer render;
     public TextMesh textmesh;
+    public AudioSource audio;
+    public AudioClip carl;
+    public AudioClip hey;
 
     public string text = "";
     // Start is called before the first frame update
@@ -15,6 +18,8 @@ public class Crystal : MonoBehaviour
         render = GetComponent<SpriteRenderer>();
         textmesh = GetComponentInChildren<TextMesh>();
         textmesh.text = "";
+        audio = GetComponent<AudioSource>();
+        audio.clip = carl;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -23,7 +28,10 @@ public class Crystal : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             render.enabled = true;
-            textmesh.text = "I'm Chrome,\nthe main \ncharacter!";
+            textmesh.text = text;
+            audio.volume = 1.0f;
+            audio.clip = carl;
+            audio.Play();
         }
     }
     
@@ -34,6 +42,9 @@ public class Crystal : MonoBehaviour
         {
             render.enabled = false;
             textmesh.text = "";
+            audio.clip = hey;
+            audio.volume = 0.5f;
+            audio.Play();
         }
     }
 
