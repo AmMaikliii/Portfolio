@@ -9,7 +9,9 @@ public class Movement : MonoBehaviour
     public Transform transform;
     public SpriteRenderer render;
     public Animator animator;
-    
+    public AudioSource audio;
+    public AudioClip footsteps;
+
     public bool isFalling = true;
     public float jumpForce = 5f;
     public float moveSpeed = 5f;
@@ -25,6 +27,8 @@ public class Movement : MonoBehaviour
         transform = GetComponent<Transform>();
         render = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
+        audio.pitch = 1.0f;
     }
     
     // Update is called once per frame
@@ -33,7 +37,7 @@ public class Movement : MonoBehaviour
         // left/right - referenced Tony's code
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         
-        rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
 
         
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -105,6 +109,19 @@ public class Movement : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             isFalling = true;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) && other.gameObject.CompareTag("Player"))
+        {
+            audio.Play();
+
+            while (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) && other.gameObject.CompareTag("Player"))
+            {
+                audio.pitch = Random.value;
+            }
         }
     }
 
